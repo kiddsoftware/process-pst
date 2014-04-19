@@ -100,15 +100,19 @@ First, set up your system with the necessary compilers, libraries and gems:
     (cd rubygems-1.3.7 && sudo ruby setup.rb)
     sudo gem1.8 install bundler -v 0.9.26
 
-Boost must be installed manually:
+Boost must be installed manually, using GCC 4.4 as [describe
+here][boost-version]:
 
     wget http://downloads.sourceforge.net/project/boost/boost/1.42.0/boost_1_42_0.tar.gz?use_mirror=voxel
     tar xzf boost_1_42_0.tar.gz
     cd boost_1_42_0
+    echo "using gcc : 4.4 : /usr/bin/g++-4.4 ; " >> tools/build/v2/user-config.jam
     ./bootstrap.sh --prefix=/opt/boost --without-libraries=python
-    ./bjam
+    ./bjam --toolset=gcc-4.4
     sudo ./bjam install
     cd ..
+
+[boost-version]: http://stackoverflow.com/questions/5346454/building-boost-with-different-gcc-version
 
 Next, check out process-pst:
 
